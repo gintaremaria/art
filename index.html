@@ -3,8 +3,36 @@ layout: default
 title: "Home"
 ---
 
-{% if site.show_excerpts %}
-  {% include home.html %}
-{% else %}
-  {% include archive.html title="Posts" %}
-{% endif %}
+<!-- Main content of the homepage -->
+<main>
+  <!-- Check if excerpts should be shown -->
+  {% if site.show_excerpts %}
+    <!-- Include home.html if excerpts are enabled -->
+    {% include home.html %}
+  {% else %}
+    <!-- Include archive.html if excerpts are not shown -->
+    {% include archive.html title="Posts" %}
+  {% endif %}
+</main>
+
+<!-- Example section to display a featured image -->
+<section id="featured-image">
+  <h2>Featured Image</h2>
+  <img src="{{ "/assets/images/featured-image.jpg" | relative_url }}" alt="Featured Image" style="max-width: 100%; height: auto;">
+</section>
+
+<!-- Example section for recent posts -->
+<section id="recent-posts">
+  <h2>Recent Posts</h2>
+  <ul>
+    {% for post in site.posts limit:5 %}
+      <li>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+        {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
+        {% endif %}
+        <p>{{ post.excerpt }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
